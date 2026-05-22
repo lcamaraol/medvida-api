@@ -2,13 +2,17 @@ package com.medvida.api.dto.response;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ConsultaResponseDTO {
     private Long id;
-    private LocalDateTime dataHora;
     private String pacienteNome;
     private String medicoNome;
     private String status;
     private String descricao;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm - dd/MM/yyyy")
+    private LocalDateTime dataHora;
 
     public ConsultaResponseDTO(Long id, LocalDateTime dataHora, String pacienteNome, String medicoNome, String status,
             String descricao) {

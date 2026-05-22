@@ -5,22 +5,25 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ConsultaRequestDTO {
 
-    @Schema(description = "ID do Paciente")
+    @Schema(description = "ID do paciente", example = "1")
     @NotNull(message = "O ID do paciente é obrigatório.")
     private Long pacienteId;
 
-    @Schema(description = "ID do Médico")
+    @Schema(description = "ID do médico", example = "1")
     @NotNull(message = "O ID do médico é obrigatório.")
     private Long medicoId;
 
-    @Schema(description = "Data e Hora da consulta")
+    @Schema(description = "Data e hora da consulta", example = "14:30 - 22/05/2026")
     @NotNull(message = "A data e hora são obrigatórias.")
     @Future(message = "O agendamento deve ser para uma data futura.")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm - dd/MM/yyyy")
     private LocalDateTime dataHora;
 
-    @Schema(description = "Descrição do atendimento clínico.")
+    @Schema(description = "Breve descrição da consulta", example = "Consulta de rotina para check-up")
     private String descricao;
 
     public Long getPacienteId() {
