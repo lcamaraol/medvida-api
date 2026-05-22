@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "tb_medicos")
 public class Medico {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,14 +18,10 @@ public class Medico {
     private String crm;
     private String email;
 
-    @ManyToOne
-    @JoinTable(
-        name = "tb_medico_especialidade",
-        joinColumns = @JoinColumn(name = "medico_id"),
-        inverseJoinColumns = @JoinColumn(name = "especialidade_id")
-    )
-
-    private List<Especialidade> especialidade;
+    @ManyToMany
+    @JoinTable(name = "tb_medico_especialidade",
+            joinColumns = @JoinColumn(name = "medico_id"), inverseJoinColumns = @JoinColumn(name = "especialidade_id"))
+    private List<Especialidade> especialidades = new java.util.ArrayList<>();
 
     @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "medico-consultas")
@@ -34,36 +30,47 @@ public class Medico {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public String getCrm() {
         return crm;
     }
+
     public void setCrm(String crm) {
         this.crm = crm;
     }
+
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
-    public List<Especialidade> getEspecialidade() {
-        return especialidade;
+
+    public List<Especialidade> getEspecialidades() {
+        return especialidades;
     }
-    public void setEspecialidade(List<Especialidade> especialidade) {
-        this.especialidade = especialidade;
+
+    public void setEspecialidades(List<Especialidade> especialidades) {
+        this.especialidades = especialidades;
     }
+
     public List<Consulta> getConsultas() {
         return consultas;
     }
+
     public void setConsultas(List<Consulta> consultas) {
         this.consultas = consultas;
     }
